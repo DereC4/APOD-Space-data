@@ -30,15 +30,17 @@ def loadAPODImage():
     os.remove("tempimage.jpg")
     photoWindow = Toplevel()
     photoWindow.title("Astronomy Picture of the Day")
-    canvas2 = Canvas(photoWindow, height=480, width=780)
-    photoWindow.resizable(False, False)
-    canvas2.pack()
+    canvas2 = Canvas(photoWindow, height=480, width=1080)
+    photoWindow.resizable(False, False)x
     print(APOD.getURL())
     
     my_image = PhotoImage(file='tempimage.png')
 
-    canvas2.create_image(0, 0, anchor=NW, image=my_image)
-    canvas2.create_text(text="Image of Day")
+    # canvas2.create_image(0, 0, anchor=NW, image=my_image)
+    # canvas2.create_text(text="Image of Day")
+    saveImageButton = Button(canvas2,text ="Save Image")
+    saveImageButton.pack(side=RIGHT,padx=15)
+    canvas2.pack()
     canvas2.mainloop()
 
 def on_closing():
