@@ -5,10 +5,15 @@ from tkinter.ttk import *
 from PIL import Image
 import urllib.request
 import os
+from datetime import date
 
 apikey = "03nFjsaeGH0euZf10kux3Cx1AfvidxiBxh8kWqPZ"
 APOD.APIKEY = apikey
 canvas = Tk()
+todayDate = date.today()
+
+def initApp():
+    APOD.getAPOD()
 
 def initCanvas():
     global canvas   
@@ -17,29 +22,43 @@ def initCanvas():
     canvas.resizable(False, False)
     APODButton = Button(canvas,text ="Click to see the\ndaily space image!",command = loadAPODImage)
     APODButton.pack(side=LEFT, padx=15)
+    APODButton = Button(canvas,text ="Click to see a\n random space image!",command = loadRandomAPODImage)
+    APODButton.pack(side=LEFT, padx=15)
 
 def loadAPODImage():
     global canvas
-    # APOD.helloWorld()
-    APOD.getAPOD()
     astrURL = APOD.getURL()
-    urllib.request.urlretrieve(astrURL, "tempimage.jpg")
-    convert = Image.open(r"tempimage.jpg")
-    convert = convert.resize((720, 480), Image.ANTIALIAS)
-    convert.save(r"tempimage.png")
-    os.remove("tempimage.jpg")
+    APOD.loadImage(astrURL)
+    print("URL: " + astrURL)
+
     photoWindow = Toplevel()
-    photoWindow.title("Astronomy Picture of the Day")
+    photoWindow.title(("Astronomy Picture of the Day for: ",todayDate))
+    photoWindow.resizable(False, False)
+
     canvas2 = Canvas(photoWindow, height=480, width=1080)
-    photoWindow.resizable(False, False)x
-    print(APOD.getURL())
+    my_image = PhotoImage(file='tempimage.png')
+    canvas2.create_image(0, 0, anchor=NW, image=my_image)
     
+    # canvas2.create_text(text="Image of Day")
+    # saveImageButton = Button(canvas2,text ="Save Image")
+    # saveImageButton.pack(side=RIGHT,padx=15)
+    canvas2.pack()
+    canvas2.mainloop()
+
+def loadRandomAPODImage():
+    global canvas
+    astrURL, year, month, day = APOD.getRandomURL()
+    APOD.loadImage(astrURL)
+    print("URL: " +astrURL)
+
+    photoWindow = Toplevel()
+    photoWindow.title("Astronomy Picture of the Day for"+str(year)+" "+month+" "+str(day))
+
+    canvas2 = Canvas(photoWindow, height=480, width=1080)
+    photoWindow.resizable(False, False)
     my_image = PhotoImage(file='tempimage.png')
 
-    # canvas2.create_image(0, 0, anchor=NW, image=my_image)
-    # canvas2.create_text(text="Image of Day")
-    saveImageButton = Button(canvas2,text ="Save Image")
-    saveImageButton.pack(side=RIGHT,padx=15)
+    canvas2.create_image(0, 0, anchor=NW, image=my_image)
     canvas2.pack()
     canvas2.mainloop()
 
@@ -51,5 +70,6 @@ def on_closing():
         canvas.destroy()    
 
 initCanvas()
+initApp()
 canvas.protocol("WM_DELETE_WINDOW", on_closing)
 mainloop()
