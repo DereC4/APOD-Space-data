@@ -1,8 +1,11 @@
 from re import T
+from turtle import back
 import APOD
+import tkinter
 from tkinter import *
 from tkinter.ttk import *
-from PIL import Image
+from tkhtmlview import HTMLLabel
+from PIL import Image,ImageTk
 import urllib.request
 import os
 from datetime import date
@@ -17,13 +20,24 @@ def initApp():
 
 def initCanvas():
     global canvas   
-    canvas.geometry("720x480")
+    canvas.geometry("1800x1000")
     canvas.title("Derek's Cool Space App")
     canvas.resizable(False, False)
+    canvas.config(bg='blue')
+
+    image1 = Image.open("awesomerenderedbackground.png")
+    backgroundImage = ImageTk.PhotoImage(image1)
+    backgroundLabel = tkinter.Label(canvas,image=backgroundImage)
+    backgroundLabel.image = backgroundImage
+    backgroundLabel.place(x=-25, y=0)
+    # backgroundLabel.pack()
     APODButton = Button(canvas,text ="Click to see the\ndaily space image!",command = loadAPODImage)
-    APODButton.pack(side=LEFT, padx=15)
+    APODButton.pack(side=TOP, padx=15)
     APODButton = Button(canvas,text ="Click to see a\n random space image!",command = loadRandomAPODImage)
-    APODButton.pack(side=LEFT, padx=15)
+    APODButton.pack(side=TOP, padx=15,pady=20)
+    # linktoNASA = HTMLLabel(canvas, html="""<a href = https://api.nasa.gov/index.html></a>""")
+    # linktoNASA.pack(pady=20,padx=20)
+
 
 def loadAPODImage():
     global canvas
