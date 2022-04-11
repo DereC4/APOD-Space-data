@@ -25,8 +25,7 @@ def initCanvas():
     canvas.resizable(False, False)
     canvas.config(bg='blue')
 
-    image1 = Image.open("awesomerenderedbackground.png")
-    backgroundImage = ImageTk.PhotoImage(image1)
+    backgroundImage = ImageTk.PhotoImage(Image.open("awesomerenderedbackground.png"))
     backgroundLabel = tkinter.Label(canvas,image=backgroundImage)
     backgroundLabel.image = backgroundImage
     backgroundLabel.place(x=-25, y=0)
