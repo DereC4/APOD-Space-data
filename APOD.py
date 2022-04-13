@@ -23,6 +23,13 @@ def getURL():
     global photoJSON
     return photoJSON.get('url')
 
+def loadImage(astrURL):
+    urllib.request.urlretrieve(astrURL, "tempimage.jpg")
+    convert = Image.open(r"tempimage.jpg")
+    convert = convert.resize((720, 480), Image.ANTIALIAS)
+    convert.save(r"tempimage.png")
+    os.remove("tempimage.jpg")
+    
 # Date must be between Jun 16, 1995 and {CURRENT DATE}
 def getRandomURL():
     global photoJSON
@@ -33,6 +40,8 @@ def getRandomURL():
     temp = requests.get("https://api.nasa.gov/planetary/apod?api_key="+APIKEY+"&date="+str(tempyear)+"-"+str(tempmonth)+"-"+str(tempday))  
     temp2 = json.dumps(temp.json())
     photoJSON = json.loads(temp2)
+    for key in photoJSON:
+        print(key.capitalize()+": "+photoJSON[key])
     if(tempmonth == 1):
         tempmonth = "January"
     elif(tempmonth == 2):
@@ -57,11 +66,4 @@ def getRandomURL():
         tempmonth = "November"
     elif(tempmonth == 12):
         tempmonth = "December"        
-    return photoJSON.get('url'), tempyear, tempmonth, tempday
-
-def loadImage(astrURL):
-    urllib.request.urlretrieve(astrURL, "tempimage.jpg")
-    convert = Image.open(r"tempimage.jpg")
-    convert = convert.resize((720, 480), Image.ANTIALIAS)
-    convert.save(r"tempimage.png")
-    os.remove("tempimage.jpg")
+    return photoJSON.get('url'), photoJSON["date"], photoJSON["title"], photoJSON["explanation"]

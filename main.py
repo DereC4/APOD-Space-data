@@ -20,7 +20,7 @@ def initApp():
 
 def initCanvas():
     global canvas   
-    canvas.geometry("1800x1000")
+    canvas.geometry("1500x800")
     canvas.title("Derek's Cool Space App")
     canvas.resizable(False, False)
     canvas.config(bg='blue')
@@ -42,7 +42,6 @@ def loadAPODImage():
     global canvas
     astrURL = APOD.getURL()
     APOD.loadImage(astrURL)
-    print("URL: " + astrURL)
 
     photoWindow = Toplevel()
     photoWindow.title(("Astronomy Picture of the Day for: ",todayDate))
@@ -52,20 +51,16 @@ def loadAPODImage():
     my_image = PhotoImage(file='tempimage.png')
     canvas2.create_image(0, 0, anchor=NW, image=my_image)
     
-    # canvas2.create_text(text="Image of Day")
-    # saveImageButton = Button(canvas2,text ="Save Image")
-    # saveImageButton.pack(side=RIGHT,padx=15)
     canvas2.pack()
     canvas2.mainloop()
 
 def loadRandomAPODImage():
     global canvas
-    astrURL, year, month, day = APOD.getRandomURL()
+    astrURL, date, title = APOD.getRandomURL()
     APOD.loadImage(astrURL)
-    print("URL: " +astrURL)
 
     photoWindow = Toplevel()
-    photoWindow.title("Astronomy Picture of the Day for"+str(year)+" "+month+" "+str(day))
+    photoWindow.title(title+" taken on "+str(date))
 
     canvas2 = Canvas(photoWindow, height=480, width=1080)
     photoWindow.resizable(False, False)
