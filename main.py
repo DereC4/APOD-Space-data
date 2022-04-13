@@ -56,11 +56,11 @@ def loadAPODImage():
 
 def loadRandomAPODImage():
     global canvas
-    astrURL, date, title = APOD.getRandomURL(apikey)
+    astrURL, year, month, day, title = APOD.getRandomURL(apikey)
     APOD.loadImage(astrURL)
 
     photoWindow = Toplevel()
-    photoWindow.title(title+" taken on "+str(date))
+    photoWindow.title(title+" taken on "+month+" "+str(day)+" "+str(year))
 
     canvas2 = Canvas(photoWindow, height=480, width=720)
     photoWindow.resizable(False, False)

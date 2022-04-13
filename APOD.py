@@ -32,6 +32,9 @@ def loadImage(astrURL):
     
 # Date must be between Jun 16, 1995 and {CURRENT DATE}
 def getRandomURL(theAPIKey):
+    '''This procedure gets a random photo URL from the NASA APOD API.
+    It returns the url, as well as the date and title of the photo using an
+    API key to access the database'''
     global photoJSON
     print("API KEY: " + theAPIKey)
     tempyear = random.randint(1996, 2020)
@@ -66,4 +69,4 @@ def getRandomURL(theAPIKey):
         tempmonth = "November"
     elif(tempmonth == 12):
         tempmonth = "December"        
-    return photoJSON.get('url'), photoJSON["date"], photoJSON["title"]
+    return photoJSON.get('url'), tempyear, tempmonth, tempday, photoJSON["title"]
