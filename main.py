@@ -47,7 +47,7 @@ def loadAPODImage():
     photoWindow.title(("Astronomy Picture of the Day for: ",todayDate))
     photoWindow.resizable(False, False)
 
-    canvas2 = Canvas(photoWindow, height=480, width=1080)
+    canvas2 = Canvas(photoWindow, height=480, width=720)
     my_image = PhotoImage(file='tempimage.png')
     canvas2.create_image(0, 0, anchor=NW, image=my_image)
     
@@ -56,13 +56,13 @@ def loadAPODImage():
 
 def loadRandomAPODImage():
     global canvas
-    astrURL, date, title = APOD.getRandomURL()
+    astrURL, date, title = APOD.getRandomURL(apikey)
     APOD.loadImage(astrURL)
 
     photoWindow = Toplevel()
     photoWindow.title(title+" taken on "+str(date))
 
-    canvas2 = Canvas(photoWindow, height=480, width=1080)
+    canvas2 = Canvas(photoWindow, height=480, width=720)
     photoWindow.resizable(False, False)
     my_image = PhotoImage(file='tempimage.png')
 

@@ -31,9 +31,9 @@ def loadImage(astrURL):
     os.remove("tempimage.jpg")
     
 # Date must be between Jun 16, 1995 and {CURRENT DATE}
-def getRandomURL():
+def getRandomURL(theAPIKey):
     global photoJSON
-    print("API KEY: " + APIKEY)
+    print("API KEY: " + theAPIKey)
     tempyear = random.randint(1996, 2020)
     tempmonth = random.randint(1,12)
     tempday = random.randint(1,28)
@@ -66,4 +66,4 @@ def getRandomURL():
         tempmonth = "November"
     elif(tempmonth == 12):
         tempmonth = "December"        
-    return photoJSON.get('url'), photoJSON["date"], photoJSON["title"], photoJSON["explanation"]
+    return photoJSON.get('url'), photoJSON["date"], photoJSON["title"]
