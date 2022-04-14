@@ -33,11 +33,11 @@ def initCanvas():
     APODButton = Button(canvas,text ="Click to see the\ndaily space image!",command = loadAPODImage)
     APODButton.pack(side=TOP, padx=15,pady=10)
     APODButton2 = Button(canvas,text ="Click to see a random space image!\n(Rarely has a bad input file format; if this happens just click again)",command = loadRandomAPODImage)
-    APODButton2.pack(side=TOP, padx=15,pady=20)
+    APODButton2.pack(side=TOP, padx=15,pady=10)
     # linktoNASA = HTMLLabel(canvas, html="""<a href = https://api.nasa.gov/index.html></a>""")
     # linktoNASA.pack(pady=20,padx=20)
     APODButton3 = Button(canvas,text ="Save Current Image",command = saveImage)
-    APODButton3.pack(side=TOP, padx=15,pady=20)
+    APODButton3.pack(side=TOP, padx = 10, pady= 10)
     # canvas.config(menu=menubar)
 
 def loadAPODImage():
@@ -72,9 +72,12 @@ def loadRandomAPODImage():
     canvas2.mainloop()
 
 def saveImage():
-    convert = Image.open(r"tempimage.png")
-    tempID = random.randint(0, 6142004)
-    convert.save(r"Daily Astronomy Photo"+str(tempID)+".png")
+    try:
+        convert = Image.open(r"tempimage.png")
+        tempID = random.randint(0, 6142004)
+        convert.save(r"Daily Astronomy Photo"+str(tempID)+".png")
+    except:
+        print("Failed to Save")
 
 def on_closing():
     if os.path.exists("tempimage.png"):
