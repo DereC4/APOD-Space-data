@@ -22,6 +22,8 @@ def getAPOD():
 def getDailyURL():
     global photoJSON
     getAPOD()
+    for key in photoJSON:
+        print(key.capitalize()+": "+photoJSON[key])
     return photoJSON.get('url'), photoJSON['explanation']
 
 def loadImage(astrURL, type):
