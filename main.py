@@ -1,3 +1,4 @@
+import random
 from re import T
 from turtle import back
 import APOD
@@ -31,7 +32,7 @@ def initCanvas():
     # backgroundLabel.pack()
     APODButton = Button(canvas,text ="Click to see the\ndaily space image!",command = loadAPODImage)
     APODButton.pack(side=TOP, padx=15,pady=10)
-    APODButton = Button(canvas,text ="Click to see a\n random space image!",command = loadRandomAPODImage)
+    APODButton = Button(canvas,text ="Click to see a random space image!\n(Rarely has a bad input file format; if this happens just click again)",command = loadRandomAPODImage)
     APODButton.pack(side=TOP, padx=15,pady=20)
     # linktoNASA = HTMLLabel(canvas, html="""<a href = https://api.nasa.gov/index.html></a>""")
     # linktoNASA.pack(pady=20,padx=20)
@@ -58,15 +59,22 @@ def loadRandomAPODImage():
     APOD.loadImage(astrURL)
 
     photoWindow = Toplevel()
-    photoWindow.title(title+" taken on "+month+" "+str(day)+" "+str(year))
+    photoWindow.title(title+" taken on "+month+" "+str(day)+", "+str(year))
 
     canvas2 = Canvas(photoWindow, height=480, width=720)
     photoWindow.resizable(False, False)
     my_image = PhotoImage(file='tempimage.png')
+    menubar = Menu(photoWindow)
+    menubar.add_command(label="Save Image", command=saveImage)
 
     canvas2.create_image(0, 0, anchor=NW, image=my_image)
     canvas2.pack()
     canvas2.mainloop()
+
+def saveImage():
+    convert = Image.open(r"tempimage.png")
+    tempID = random.randint(0, 6142004)
+    convert.save(r"Daily Astronomy Photo"+tempID+".png")
 
 def on_closing():
     if os.path.exists("tempimage.png"):
