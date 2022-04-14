@@ -43,7 +43,7 @@ def initCanvas():
 def loadAPODImage():
     global canvas
     astrURL,description = APOD.getDailyURL()
-    APOD.loadImage(astrURL)
+    APOD.loadImage(astrURL,"normal")
 
     photoWindow = Toplevel()
     photoWindow.title(("Astronomy Picture of the Day for: ",todayDate))
@@ -58,14 +58,14 @@ def loadAPODImage():
 def loadRandomAPODImage():
     global canvas
     astrURL, year, month, day, title = APOD.getRandomURL(apikey)
-    APOD.loadImage(astrURL)
+    APOD.loadImage(astrURL,"random")
 
     photoWindow = Toplevel()
     photoWindow.title(title+" taken on "+month+" "+str(day)+", "+str(year))
 
     canvas2 = Canvas(photoWindow, height=480, width=720)
     photoWindow.resizable(False, False)
-    my_image = PhotoImage(file='tempimage.png')
+    my_image = PhotoImage(file='tempimagerandom.png')
 
     canvas2.create_image(0, 0, anchor=NW, image=my_image)
     canvas2.pack()
@@ -80,10 +80,11 @@ def saveImage():
         print("Failed to Save")
 
 def on_closing():
-    if os.path.exists("tempimage.png"):
+    try:
         os.remove("tempimage.png")
+        os.remove("tempimagerandom.png")
         canvas.destroy()
-    else:
+    except:
         canvas.destroy()    
 
 initCanvas()

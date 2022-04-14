@@ -24,12 +24,19 @@ def getDailyURL():
     getAPOD()
     return photoJSON.get('url'), photoJSON['explanation']
 
-def loadImage(astrURL):
-    urllib.request.urlretrieve(astrURL, "tempimage.jpg")
-    convert = Image.open(r"tempimage.jpg")
-    convert = convert.resize((720, 480), Image.ANTIALIAS)
-    convert.save(r"tempimage.png")
-    os.remove("tempimage.jpg")
+def loadImage(astrURL, type):
+    if(type=="normal"):
+        urllib.request.urlretrieve(astrURL, "tempimage.jpg")
+        convert = Image.open(r"tempimage.jpg")
+        convert = convert.resize((720, 480), Image.ANTIALIAS)
+        convert.save(r"tempimage.png")
+        os.remove("tempimage.jpg")
+    elif(type=="random"):
+        urllib.request.urlretrieve(astrURL, "tempimagerandom.jpg")
+        convert = Image.open(r"tempimagerandom.jpg")
+        convert = convert.resize((720, 480), Image.ANTIALIAS)
+        convert.save(r"tempimagerandom.png")
+        os.remove("tempimagerandom.jpg")
     
 # Date must be between Jun 16, 1995 and {CURRENT DATE}
 def getRandomURL(theAPIKey):
