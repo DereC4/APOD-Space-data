@@ -75,10 +75,17 @@ def saveImage():
     try:
         convert = Image.open(r"tempimage.png")
         tempID = random.randint(0, 6142004)
-        convert.save(r"Daily Astronomy Photo"+str(tempID)+".png")
+        convert.save(r"Astronomy Photo"+str(tempID)+".png")
+        print("Saved Daily Image")
     except:
-        print("Failed to Save")
-
+        print("Failed to Save Daily Image")
+    try:
+        convert = Image.open(r"tempimagerandom.png")
+        tempID = random.randint(0, 6142004)
+        convert.save(r"Astronomy Photo"+str(tempID)+".png")
+        print("Saved Random Image")
+    except:
+        print("Failed to Save Random Image")
 def on_closing():
     try:
         os.remove("tempimage.png")
