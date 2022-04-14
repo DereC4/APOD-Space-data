@@ -6,7 +6,6 @@ from tkinter import *
 from tkinter.ttk import *
 from tkhtmlview import HTMLLabel
 from PIL import Image,ImageTk
-import urllib.request
 import os
 from datetime import date
 
@@ -31,16 +30,15 @@ def initCanvas():
     backgroundLabel.place(x=-25, y=0)
     # backgroundLabel.pack()
     APODButton = Button(canvas,text ="Click to see the\ndaily space image!",command = loadAPODImage)
-    APODButton.pack(side=TOP, padx=15)
+    APODButton.pack(side=TOP, padx=15,pady=10)
     APODButton = Button(canvas,text ="Click to see a\n random space image!",command = loadRandomAPODImage)
     APODButton.pack(side=TOP, padx=15,pady=20)
     # linktoNASA = HTMLLabel(canvas, html="""<a href = https://api.nasa.gov/index.html></a>""")
     # linktoNASA.pack(pady=20,padx=20)
 
-
 def loadAPODImage():
     global canvas
-    astrURL = APOD.getURL()
+    astrURL,description = APOD.getDailyURL()
     APOD.loadImage(astrURL)
 
     photoWindow = Toplevel()

@@ -19,9 +19,10 @@ def getAPOD():
     photoJSON = json.loads(temp2)
     return photoJSON
 
-def getURL():
+def getDailyURL():
     global photoJSON
-    return photoJSON.get('url')
+    getAPOD()
+    return photoJSON.get('url'), photoJSON['explanation']
 
 def loadImage(astrURL):
     urllib.request.urlretrieve(astrURL, "tempimage.jpg")
@@ -36,7 +37,7 @@ def getRandomURL(theAPIKey):
     It returns the url, as well as the date and title of the photo using an
     API key to access the database'''
     global photoJSON
-    print("API KEY: " + theAPIKey)
+    # print("API KEY: " + theAPIKey)
     tempyear = random.randint(1996, 2020)
     tempmonth = random.randint(1,12)
     tempday = random.randint(1,28)
