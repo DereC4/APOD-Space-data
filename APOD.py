@@ -12,6 +12,8 @@ def helloWorld():
     print("Hello World - "+__file__)
 
 def getAPOD():
+    '''This function takes a HTTP request's output to the NASA Astronomy Picture of the Day API
+    and stores the resulting JSON data in the collection photoJSON (a dictionary)'''
     global photoJSON
     print("API KEY: " + APIKEY)
     temp = requests.get("https://api.nasa.gov/planetary/apod?api_key="+APIKEY)
@@ -20,6 +22,9 @@ def getAPOD():
     return photoJSON
 
 def getDailyURL():
+    '''This function uses the collection variable photoJSON and iterates through it to print out the
+    metadata of the image file such as its background information. Then it returns the URL of the image
+    and description to be shown on the app window.'''
     global photoJSON
     getAPOD()
     for key in photoJSON:
@@ -40,14 +45,14 @@ def loadImage(astrURL, type):
         convert.save(r"tempimagerandom.png")
         os.remove("tempimagerandom.jpg")
     
-# Date must be between Jun 16, 1995 and {CURRENT DATE}
 def getRandomURL(theAPIKey):
     '''This procedure gets a random photo URL from the NASA APOD API.
     It returns the url, as well as the date and title of the photo using an
-    API key to access the database'''
+    API key to access the database
+    Date must be between Jun 16, 1995 and today's date'''
+    APIKEY = theAPIKey
     global photoJSON
-    # print("API KEY: " + theAPIKey)
-    tempyear = random.randint(1996, 2020)
+    tempyear = random.randint(1996, 2021)
     tempmonth = random.randint(1,12)
     tempday = random.randint(1,28)
     temp = requests.get("https://api.nasa.gov/planetary/apod?api_key="+APIKEY+"&date="+str(tempyear)+"-"+str(tempmonth)+"-"+str(tempday))  
