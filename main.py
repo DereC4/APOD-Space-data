@@ -86,13 +86,17 @@ def saveImage():
         print("Saved Random Image")
     except:
         print("Failed to Save Random Image")
+        
 def on_closing():
     try:
         os.remove("tempimage.png")
-        os.remove("tempimagerandom.png")
-        canvas.destroy()
     except:
-        canvas.destroy()    
+        pass
+    try:
+        os.remove("tempimagerandom.png")
+    except:
+        pass
+    canvas.destroy()
 
 initCanvas()
 initApp()
