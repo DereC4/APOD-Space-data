@@ -1,11 +1,9 @@
 import random
 from re import T
-from turtle import back
 import APOD
 import tkinter
 from tkinter import *
 from tkinter.ttk import *
-from tkhtmlview import HTMLLabel
 from PIL import Image,ImageTk
 import os
 from datetime import date
@@ -21,7 +19,7 @@ def initApp():
 def initCanvas():
     global canvas   
     canvas.geometry("1500x800")
-    canvas.title("Derek's Cool Space App")
+    canvas.title("Cool Space App")
     canvas.resizable(False, False)
     canvas.config(bg='blue')
 
